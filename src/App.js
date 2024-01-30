@@ -14,6 +14,7 @@ function App() {
       </header>
       <main className="main-bg">
         <ComponentWelcome />
+
         <ComponentAllTheBooks />
       </main>
       <footer>
