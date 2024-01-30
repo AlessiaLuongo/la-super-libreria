@@ -5,9 +5,11 @@ const ComponentFooter = () => {
   return (
     <Card>
       <ListGroup variant="flush">
-        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+        <ListGroup.Item className="center">
+          Made with <i class="bi bi-heart"></i>
+        </ListGroup.Item>
+        <ListGroup.Item className="center">Questions?</ListGroup.Item>
+        <ListGroup.Item className="center">Alessia Luongo</ListGroup.Item>
       </ListGroup>
     </Card>
   );

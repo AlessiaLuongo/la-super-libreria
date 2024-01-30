@@ -4,9 +4,11 @@ import Nav from "react-bootstrap/Nav";
 
 const ComponentMyNav = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+    <Navbar collapseOnSelect expand="lg" bg="dark" data-bs-theme="dark">
       <Container fluid>
-        <Navbar.Brand href="#">Home</Navbar.Brand>
+        <Navbar.Brand href="#">
+          Home <i class="bi bi-search-heart"></i>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">

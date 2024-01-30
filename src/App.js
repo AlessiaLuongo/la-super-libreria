@@ -1,5 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import ComponentMyNav from "./components/ComponentMyNav";
 import ComponentFooter from "./components/ComponentFooter";
 import ComponentWelcome from "./components/ComponentWelcome";
@@ -11,7 +12,7 @@ function App() {
       <header>
         <ComponentMyNav />
       </header>
-      <main>
+      <main className="main-bg">
         <ComponentWelcome />
         <ComponentAllTheBooks />
       </main>
