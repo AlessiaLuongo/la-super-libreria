@@ -7,7 +7,7 @@ const ComponentMyNav = () => {
     <Navbar collapseOnSelect expand="lg" bg="dark" data-bs-theme="dark">
       <Container fluid>
         <Navbar.Brand href="#">
-          Home <i class="bi bi-search-heart"></i>
+          Home <i className="bi bi-search-heart"></i>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

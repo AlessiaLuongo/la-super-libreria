@@ -6,7 +6,7 @@ const ComponentFooter = () => {
     <Card>
       <ListGroup variant="flush">
         <ListGroup.Item className="center">
-          Made with <i class="bi bi-heart"></i>
+          Made with <i className="bi bi-heart"></i>
         </ListGroup.Item>
         <ListGroup.Item className="center">Questions?</ListGroup.Item>
         <ListGroup.Item className="center">Alessia Luongo</ListGroup.Item>

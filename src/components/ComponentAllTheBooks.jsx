@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import datahhorror from "../data/horror.json";
+import datahorror from "../data/horror.json";
 import { Component } from "react";
 
 class ComponentAllTheBooks extends Component {
@@ -11,7 +11,7 @@ class ComponentAllTheBooks extends Component {
     return (
       <Container>
         <Row className="g-3">
-          {datahhorror.map((libro) => {
+          {datahorror.map((libro) => {
             return (
               <Col key={libro.asin} xs={12} sm={10} md={6} lg={3}>
                 <Card style={{ height: "80%", border: "none" }}>
