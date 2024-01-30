@@ -10,20 +10,20 @@ class ComponentAllTheBooks extends Component {
   render() {
     return (
       <Container>
-        <Row className="g-1">
+        <Row className="g-3">
           {datahhorror.map((libro) => {
             return (
-              <Col key={libro.asin} xs={12} md={8} lg={3}>
-                <Card style={{ height: "85%" }}>
+              <Col key={libro.asin} xs={12} sm={10} md={6} lg={3}>
+                <Card style={{ height: "80%", border: "none" }}>
                   <Card.Img
                     variant="top"
                     src={libro.img}
                     style={{ height: "60%" }}
                   />
-                  <Card.Body className="d-flex flex-column justify-content-between align-items-center">
+                  <Card.Body className="d-flex flex-column justify-content-between align-items-center card-bg">
                     <Card.Title className="center">{libro.title}</Card.Title>
                     <Card.Text className="center">{libro.category}</Card.Text>
-                    <Button variant="primary">€ {libro.price}</Button>
+                    <Button variant="secondary">€ {libro.price}</Button>
                   </Card.Body>
                 </Card>
               </Col>
