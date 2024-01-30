@@ -1,0 +1,33 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+$new-primary: purple;
+$new-secondary: rgb(76 57 41);
+$new-warning: green;
+
+$new-theme-colors: (
+  "primary": $new-primary,
+  "secondary": $new-secondary,
+  "warning": $new-warning,
+);
+
+$theme-colors: map-merge($theme-colors, $new-theme-colors);
+
+.center {
+  text-align: center;
+}
+
+.main-bg {
+  background-image: url(https://thumbs.dreamstime.com/b/silence-lambs-butterfly-horror-art-pattern-109759966.jpg);
+  font-family: "Times New Roman", Times, serif;
+}
+
+.card-bg {
+  background-color: rgb(171 151 70);
+}
+
+.price-button {
+  border: none !important;
+  background-color: rgb(76 57 41) !important;
+  font-size: 1.5em !important;
+}

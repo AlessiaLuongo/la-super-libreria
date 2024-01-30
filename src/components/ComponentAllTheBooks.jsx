@@ -23,12 +23,7 @@ class ComponentAllTheBooks extends Component {
                   <Card.Body className="d-flex flex-column justify-content-between align-items-center card-bg">
                     <Card.Title className="center">{libro.title}</Card.Title>
                     <Card.Text className="center">{libro.category}</Card.Text>
-                    <Button
-                      variant="secondary"
-                      style={{ fontFamily: "monospace" }}
-                    >
-                      € {libro.price}
-                    </Button>
+                    <Button className="price-button">€ {libro.price}</Button>
                   </Card.Body>
                 </Card>
               </Col>
