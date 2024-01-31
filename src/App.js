@@ -5,6 +5,8 @@ import ComponentMyNav from "./components/ComponentMyNav";
 import ComponentFooter from "./components/ComponentFooter";
 import ComponentWelcome from "./components/ComponentWelcome";
 import ComponentAllTheBooks from "./components/ComponentAllTheBooks";
+import horror from "../src/data/horror.json";
+import history from "../src/data/history.json";
 
 function App() {
   return (
@@ -15,7 +17,8 @@ function App() {
       <main className="main-bg">
         <ComponentWelcome />
 
-        <ComponentAllTheBooks />
+        <ComponentAllTheBooks libri={horror} />
+        {/* <ComponentAllTheBooks libri={history} /> */}
       </main>
       <footer>
         <ComponentFooter />

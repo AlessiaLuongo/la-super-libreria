@@ -1,34 +1,55 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import datahorror from "../data/horror.json";
 import { Component } from "react";
+import SingleBook from "./SingleBook";
 
 class ComponentAllTheBooks extends Component {
+  state = {
+    inputValue: "",
+    searchResult: [],
+  };
+
   render() {
     return (
       <Container>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            this.setState({
+              ...this.state,
+              searchResult: this.props.libri.filter((libro) => {
+                return libro.title
+                  .toLowerCase()
+                  .includes(this.state.inputValue.toLowerCase());
+              }),
+            });
+          }}
+        >
+          <Form.Control
+            type="text"
+            placeholder="Search"
+            className=" my-5"
+            value={this.state.inputValue}
+            onChange={(e) => {
+              this.setState({
+                ...this.state,
+                inputValue: e.target.value,
+              });
+            }}
+          />
+          <Button type="submit">Cerca</Button>
+        </Form>
+
         <Row className="g-3">
-          {datahorror.map((libro) => {
-            return (
-              <Col key={libro.asin} xs={12} sm={10} md={6} lg={3}>
-                <Card style={{ height: "80%", border: "none" }}>
-                  <Card.Img
-                    variant="top"
-                    src={libro.img}
-                    style={{ height: "60%" }}
-                  />
-                  <Card.Body className="d-flex flex-column justify-content-between align-items-center card-bg">
-                    <Card.Title className="center">{libro.title}</Card.Title>
-                    <Card.Text className="center">{libro.category}</Card.Text>
-                    <Button className="price-button">€ {libro.price}</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
+          {this.state.inputValue && this.state.searchResult.length > 0
+            ? this.state.searchResult.map((libro) => {
+                return <SingleBook libro={libro} />;
+              })
+            : this.props.libri.map((libro) => {
+                return <SingleBook libro={libro} />;
+              })}
         </Row>
       </Container>
     );
