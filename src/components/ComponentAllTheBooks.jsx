@@ -56,7 +56,7 @@ class ComponentAllTheBooks extends Component {
           </Form>
         </Row>
 
-        <Row className="g-3">
+        <Row className="g-3 justify-content-center">
           {this.state.inputValue && this.state.searchResult.length > 0
             ? this.state.searchResult.map((libro) => {
                 return <SingleBook libro={libro} />;
