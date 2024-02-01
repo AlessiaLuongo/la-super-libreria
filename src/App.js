@@ -6,7 +6,7 @@ import ComponentFooter from "./components/ComponentFooter";
 import ComponentWelcome from "./components/ComponentWelcome";
 import ComponentAllTheBooks from "./components/ComponentAllTheBooks";
 import horror from "../src/data/horror.json";
-import history from "../src/data/history.json";
+// import history from "../src/data/history.json";
 
 function App() {
   return (

@@ -2,6 +2,7 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { Component } from "react";
+import CommentArea from "./CommentArea";
 
 class SingleBook extends Component {
   state = {
@@ -16,14 +17,14 @@ class SingleBook extends Component {
             height: "80%",
             border: `${this.state.selectedBook ? "3px solid red" : "none"}`,
           }}
-          onClick={() => {
-            this.setState({ selectedBook: !this.state.selectedBook });
-          }}
         >
           <Card.Img
             variant="top"
             src={this.props.libro.img}
             style={{ height: "60%" }}
+            onClick={() => {
+              this.setState({ selectedBook: !this.state.selectedBook });
+            }}
           />
           <Card.Body className="d-flex flex-column justify-content-between align-items-center card-bg">
             <Card.Title className="center">{this.props.libro.title}</Card.Title>
@@ -32,6 +33,7 @@ class SingleBook extends Component {
             </Card.Text>
             <Button className="price-button">€ {this.props.libro.price}</Button>
           </Card.Body>
+          {this.state.selectedBook ? <CommentArea /> : ""}
         </Card>
       </Col>
     );
