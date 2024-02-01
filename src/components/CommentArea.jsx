@@ -10,12 +10,15 @@ class CommentArea extends Component {
     toggleModale: false,
   };
   fetchComments = () => {
-    fetch("https://striveschool-api.herokuapp.com/api/comments/0316438960 ", {
-      headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWJiOTUwYjViMjYxNTAwMTk4YTY5MzYiLCJpYXQiOjE3MDY3OTIyMDMsImV4cCI6MTcwODAwMTgwM30.0Hw_LARiHlBjPQ38iVSzxWjnwfzE2jiyA3iahWrPFCM",
-      },
-    })
+    fetch(
+      "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin,
+      {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWJiOTUwYjViMjYxNTAwMTk4YTY5MzYiLCJpYXQiOjE3MDY3OTIyMDMsImV4cCI6MTcwODAwMTgwM30.0Hw_LARiHlBjPQ38iVSzxWjnwfzE2jiyA3iahWrPFCM",
+        },
+      }
+    )
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -52,7 +55,11 @@ class CommentArea extends Component {
         >
           Commenta
         </Button>
-        {this.state.toggleModale ? <Modale></Modale> : ""}
+        {this.state.toggleModale ? (
+          <Modale commentsToShow={this.state.commenti}></Modale>
+        ) : (
+          ""
+        )}
       </ListGroup>
     );
   }

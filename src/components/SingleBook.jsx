@@ -33,7 +33,9 @@ class SingleBook extends Component {
             </Card.Text>
             <Button className="price-button">€ {this.props.libro.price}</Button>
           </Card.Body>
-          {this.state.selectedBook ? <CommentArea /> : ""}
+          {this.state.selectedBook && (
+            <CommentArea asin={this.props.libro.asin} />
+          )}
         </Card>
       </Col>
     );

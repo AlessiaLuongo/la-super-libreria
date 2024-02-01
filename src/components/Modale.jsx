@@ -8,17 +8,25 @@ class Modale extends Component {
     newComment: {
       comment: "",
       rate: "1",
+      elementId: this.props.asin,
     },
   };
 
   newCommentSubmit = (e) => {
-    e.preventDefault();
-    console.log("stato corrente", this.state.newComment);
+    fetch("https://striveschool-api.herokuapp.com/api/comments/", {
+      method: "POST",
+      body: JSON.stringify(this.state.newComment),
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWJiOTUwYjViMjYxNTAwMTk4YTY5MzYiLCJpYXQiOjE3MDY3OTIyMDMsImV4cCI6MTcwODAwMTgwM30.0Hw_LARiHlBjPQ38iVSzxWjnwfzE2jiyA3iahWrPFCM",
+      },
+    });
   };
 
   render() {
     return (
       <div
+        key={this.commento.elementId}
         className="modal show"
         style={{ display: "block", position: "initial" }}
       >
@@ -28,7 +36,12 @@ class Modale extends Component {
           </Modal.Header>
 
           <Modal.Body>
-            <Form>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                console.log("stato corrente", this.state.newComment);
+              }}
+            >
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlTextarea1"
@@ -73,7 +86,7 @@ class Modale extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary">Chiudi </Button>
+            <Button variant="secondary">Chiudi</Button>
             <Button
               onClick={this.newCommentSubmit}
               type="button"
