@@ -2,7 +2,6 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Component } from "react";
-import { ListGroupItem } from "react-bootstrap";
 
 class Modale extends Component {
   state = {
@@ -17,6 +16,8 @@ class Modale extends Component {
     fetch("https://striveschool-api.herokuapp.com/api/comments/", {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
+
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWJiOTUwYjViMjYxNTAwMTk4YTY5MzYiLCJpYXQiOjE3MDY3OTIyMDMsImV4cCI6MTcwODAwMTgwM30.0Hw_LARiHlBjPQ38iVSzxWjnwfzE2jiyA3iahWrPFCM",
       },
