@@ -42,8 +42,13 @@ class CommentArea extends Component {
   render() {
     return (
       <ListGroup>
-        {this.state.commenti.map((commento) => {
-          return <SingleComment commento={commento} key={commento.elementId} />;
+        {this.state.commenti.map((commento, index) => {
+          return (
+            <SingleComment
+              commento={commento}
+              key={`${commento.elementId}-${index}`}
+            />
+          );
         })}
         <Button
           onClick={(e) => {
