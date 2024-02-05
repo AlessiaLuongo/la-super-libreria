@@ -9,36 +9,52 @@ import horror from "../src/data/horror.json";
 import CommentArea from "./components/CommentArea";
 import { Container, Row } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
+import { Component } from "react";
+
 // import history from "../src/data/history.json";
 
-function App() {
-  return (
-    <div>
-      <header>
-        <ComponentMyNav />
-      </header>
-      <main className="main-bg">
-        <Container>
-          <Row>
-            <ComponentWelcome />
-          </Row>
+class App extends Component {
+  state = {
+    selectedBook: null,
+  };
+  changeState = (asin) => {
+    this.setState(asin);
+  };
 
-          <Row>
-            <Col xs={7} sm={8} md={8} lg={8}>
-              <ComponentAllTheBooks libri={horror} />
-            </Col>
+  render() {
+    return (
+      <div>
+        <header>
+          <ComponentMyNav />
+        </header>
 
-            <Col xs={5} sm={4} md={4} lg={4}>
-              <CommentArea />
-            </Col>
-          </Row>
-        </Container>
-      </main>
-      <footer>
-        <ComponentFooter />
-      </footer>
-    </div>
-  );
+        <main className="main-bg">
+          <Container>
+            <Row>
+              <ComponentWelcome />
+            </Row>
+
+            <Row>
+              <Col xs={7} sm={8} md={8} lg={8}>
+                <ComponentAllTheBooks
+                  libri={horror}
+                  selectedBook={this.state.selectedBook}
+                  setState={this.changeState}
+                />
+              </Col>
+
+              <Col xs={5} sm={4} md={4} lg={4}>
+                <CommentArea asin={this.state.selectedBook} />
+              </Col>
+            </Row>
+          </Container>
+        </main>
+        <footer>
+          <ComponentFooter />
+        </footer>
+      </div>
+    );
+  }
 }
 
 export default App;

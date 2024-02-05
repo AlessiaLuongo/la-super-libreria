@@ -4,17 +4,17 @@ import Button from "react-bootstrap/Button";
 import { Component } from "react";
 
 class SingleBook extends Component {
-  state = {
-    selectedBook: false,
-  };
-
   render() {
     return (
       <Col key={this.props.libro.asin} xs={12} sm={10} md={6} lg={3}>
         <Card
           style={{
             height: "80%",
-            border: `${this.state.selectedBook ? "3px solid red" : "none"}`,
+            border: `${
+              this.props.selectedBook === this.props.libro.asin
+                ? "3px solid red"
+                : "none"
+            }`,
           }}
         >
           <Card.Img
@@ -22,7 +22,7 @@ class SingleBook extends Component {
             src={this.props.libro.img}
             style={{ height: "60%" }}
             onClick={() => {
-              this.setState({ selectedBook: !this.state.selectedBook });
+              this.props.setState({ selectedBook: this.props.libro.asin });
             }}
           />
           <Card.Body className="d-flex flex-column justify-content-between align-items-center card-bg">

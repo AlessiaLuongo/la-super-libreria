@@ -3,12 +3,13 @@ import ListGroup from "react-bootstrap/ListGroup";
 import SingleComment from "./SingleComment";
 import Button from "react-bootstrap/Button";
 import Modale from "./Modale";
-
+import { ListGroupItem } from "react-bootstrap";
 class CommentArea extends Component {
   state = {
     commenti: [],
     toggleModale: false,
   };
+
   fetchComments = () => {
     fetch(
       "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin,
@@ -35,37 +36,39 @@ class CommentArea extends Component {
         console.log(err);
       });
   };
-  componentDidMount() {
-    this.fetchComments();
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.asin !== this.props.asin) {
+      this.fetchComments();
+    }
   }
+
+  handleToggleModale = () => {
+    this.setState({
+      toggleModale: !this.state.toggleModale,
+    });
+  };
 
   render() {
     return (
-      <ListGroup>
-        {this.state.commenti.map((commento, index) => {
-          return (
+      <div>
+        <ListGroup>
+          {this.state.commenti.map((commento, index) => (
             <SingleComment
               commento={commento}
               key={`${commento.elementId}-${index}`}
             />
-          );
-        })}
-        <Button
-          onClick={(e) => {
-            this.setState({
-              ...this.state.commenti,
-              toggleModale: !this.state.toggleModale,
-            });
-          }}
-        >
-          Commenta
-        </Button>
-        {this.state.toggleModale ? (
-          <Modale commentsToShow={this.state.commenti}></Modale>
-        ) : (
-          ""
+          ))}
+        </ListGroup>
+
+        <ListGroupItem>
+          <Button onClick={this.handleToggleModale}>Commenta</Button>
+        </ListGroupItem>
+
+        {this.state.toggleModale && (
+          <Modale commentsToShow={this.state.commenti} asin={this.props.asin} />
         )}
-      </ListGroup>
+      </div>
     );
   }
 }

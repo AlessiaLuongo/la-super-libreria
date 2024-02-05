@@ -59,10 +59,24 @@ class ComponentAllTheBooks extends Component {
         <Row className="g-3 justify-content-center">
           {this.state.inputValue && this.state.searchResult.length > 0
             ? this.state.searchResult.map((libro) => {
-                return <SingleBook key={libro.asin} libro={libro} />;
+                return (
+                  <SingleBook
+                    key={libro.asin}
+                    libro={libro}
+                    selectedBook={this.props.selectedBook}
+                    setState={this.props.setState}
+                  />
+                );
               })
             : this.props.libri.map((libro) => {
-                return <SingleBook key={libro.asin} libro={libro} />;
+                return (
+                  <SingleBook
+                    key={libro.asin}
+                    libro={libro}
+                    selectedBook={this.props.selectedBook}
+                    setState={this.props.setState}
+                  />
+                );
               })}
         </Row>
       </Container>
