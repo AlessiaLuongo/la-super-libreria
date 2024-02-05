@@ -6,6 +6,9 @@ import ComponentFooter from "./components/ComponentFooter";
 import ComponentWelcome from "./components/ComponentWelcome";
 import ComponentAllTheBooks from "./components/ComponentAllTheBooks";
 import horror from "../src/data/horror.json";
+import CommentArea from "./components/CommentArea";
+import { Container, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
 // import history from "../src/data/history.json";
 
 function App() {
@@ -15,10 +18,21 @@ function App() {
         <ComponentMyNav />
       </header>
       <main className="main-bg">
-        <ComponentWelcome />
+        <Container>
+          <Row>
+            <ComponentWelcome />
+          </Row>
 
-        <ComponentAllTheBooks libri={horror} />
-        {/* <ComponentAllTheBooks libri={history} /> */}
+          <Row>
+            <Col xs={7} sm={8} md={8} lg={8}>
+              <ComponentAllTheBooks libri={horror} />
+            </Col>
+
+            <Col xs={5} sm={4} md={4} lg={4}>
+              <CommentArea />
+            </Col>
+          </Row>
+        </Container>
       </main>
       <footer>
         <ComponentFooter />
