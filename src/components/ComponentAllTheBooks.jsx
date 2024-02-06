@@ -3,84 +3,86 @@ import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { Component } from "react";
+import { useState, useEffect } from "react";
 import SingleBook from "./SingleBook";
 
-class ComponentAllTheBooks extends Component {
-  state = {
-    inputValue: "",
-    searchResult: [],
+const ComponentAllTheBooks = (props) => {
+  // state = {
+  //   inputValue: "",
+  //   searchResult: [],
+  // };
+  const handleInput = (e) => {
+    setInputValue(e.target.value);
   };
 
-  render() {
-    return (
-      <Container>
-        <Row className="justify-content-center">
-          <Form
-            className="my-3 d-flex justify-content-end"
-            onSubmit={(e) => {
-              e.preventDefault();
-              this.setState({
-                ...this.state,
-                searchResult: this.props.libri.filter((libro) => {
-                  return libro.title
-                    .toLowerCase()
-                    .includes(this.state.inputValue.toLowerCase());
-                }),
-              });
-            }}
+  const [inputValue, setInputValue] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+
+  return (
+    <Container>
+      <Row className="justify-content-center">
+        <Form
+          className="my-3 d-flex justify-content-end"
+          onSubmit={(e) => {
+            e.preventDefault();
+            // this.setState({
+            //   ...this.state,
+            const filteredBooks = props.libri.filter((libro) =>
+              libro.title.toLowerCase().includes(inputValue.toLowerCase())
+            );
+            setSearchResult(filteredBooks);
+            // });
+          }}
+        >
+          <Col
+            xs={12}
+            sm={10}
+            md={6}
+            lg={3}
+            className=" d-flex justify-content-center"
           >
-            <Col
-              xs={12}
-              sm={10}
-              md={6}
-              lg={3}
-              className=" d-flex justify-content-center"
-            >
-              <Form.Control
-                type="text"
-                placeholder="Search"
-                value={this.state.inputValue}
-                onChange={(e) => {
-                  this.setState({
-                    ...this.state,
-                    inputValue: e.target.value,
-                  });
-                }}
-              />
+            <Form.Control
+              type="text"
+              placeholder="Search"
+              value={inputValue}
+              onChange={handleInput}
+              // this.setState({
+              //   ...this.state,
+              //   inputValue: e.target.value,
+              // });
+            />
 
-              <Col className="text-center">
-                <Button type="submit">Cerca</Button>
-              </Col>
+            <Col className="text-center">
+              <Button type="submit">Cerca</Button>
             </Col>
-          </Form>
-        </Row>
+          </Col>
+        </Form>
+      </Row>
 
-        <Row className="g-3 justify-content-center">
-          {this.state.inputValue && this.state.searchResult.length > 0
-            ? this.state.searchResult.map((libro) => {
-                return (
-                  <SingleBook
-                    key={libro.asin}
-                    libro={libro}
-                    selectedBook={this.props.selectedBook}
-                    setState={this.props.setState}
-                  />
-                );
-              })
-            : this.props.libri.map((libro) => {
-                return (
-                  <SingleBook
-                    key={libro.asin}
-                    libro={libro}
-                    selectedBook={this.props.selectedBook}
-                    setState={this.props.setState}
-                  />
-                );
-              })}
-        </Row>
-      </Container>
-    );
-  }
-}
+      <Row className="g-3 justify-content-center">
+        {inputValue && searchResult.length > 0
+          ? searchResult.map((libro) => {
+              return (
+                <SingleBook
+                  key={libro.asin}
+                  libro={libro}
+                  setSelectedBook={props.setSelectedBook}
+                  selectedBook={props.selectedBook}
+                />
+              );
+            })
+          : props.libri.map((libro) => {
+              return (
+                <SingleBook
+                  key={libro.asin}
+                  libro={libro}
+                  setSelectedBook={props.setSelectedBook}
+                  selectedBook={props.selectedBook}
+                />
+              );
+            })}
+      </Row>
+    </Container>
+  );
+};
 export default ComponentAllTheBooks;

@@ -1,18 +1,23 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import SingleComment from "./SingleComment";
 import Button from "react-bootstrap/Button";
 import Modale from "./Modale";
 import { ListGroupItem } from "react-bootstrap";
-class CommentArea extends Component {
-  state = {
-    commenti: [],
-    toggleModale: false,
-  };
 
-  fetchComments = () => {
+const CommentArea = (props) => {
+  console.log(props);
+  // state = {
+  //   commenti: [],
+  //   toggleModale: false,
+  // };
+  const [commenti, setCommenti] = useState([]);
+  const [toggleModale, setToggleModale] = useState(false);
+
+  const fetchComments = () => {
     fetch(
-      "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin,
+      "https://striveschool-api.herokuapp.com/api/comments/" +
+        props.selectedBook,
       {
         headers: {
           Authorization:
@@ -28,49 +33,50 @@ class CommentArea extends Component {
         }
       })
       .then((comments) => {
-        this.setState({
-          commenti: comments,
-        });
+        setCommenti(comments);
+        // this.setState({
+        //   commenti: comments,
+
+        // });
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.asin !== this.props.asin) {
-      this.fetchComments();
+  useEffect(() => {
+    if (props.selectedBook) {
+      fetchComments();
     }
-  }
+  }, [props.selectedBook]);
 
-  handleToggleModale = () => {
-    this.setState({
-      toggleModale: !this.state.toggleModale,
-    });
+  const handleToggleModale = () => {
+    setToggleModale(!toggleModale);
+    // this.setState({
+    //   toggleModale: !this.state.toggleModale,
+    // });
   };
 
-  render() {
-    return (
-      <div>
-        <ListGroup>
-          {this.state.commenti.map((commento, index) => (
-            <SingleComment
-              commento={commento}
-              key={`${commento.elementId}-${index}`}
-            />
-          ))}
-        </ListGroup>
+  return (
+    <div>
+      <ListGroup>
+        {commenti.map((commento, index) => (
+          <SingleComment
+            commento={commento}
+            key={`${commento.elementId}-${index}`}
+          />
+        ))}
+      </ListGroup>
 
-        <ListGroupItem>
-          <Button onClick={this.handleToggleModale}>Commenta</Button>
-        </ListGroupItem>
+      <ListGroupItem>
+        <Button onClick={handleToggleModale}>Commenta</Button>
+      </ListGroupItem>
 
-        {this.state.toggleModale && (
-          <Modale commentsToShow={this.state.commenti} asin={this.props.asin} />
-        )}
-      </div>
-    );
-  }
-}
+      {toggleModale && (
+        <Modale commentsToShow={commenti} asin={props.selectedBook} />
+      )}
+    </div>
+  );
+};
 
 export default CommentArea;

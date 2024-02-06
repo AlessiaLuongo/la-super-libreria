@@ -1,18 +1,24 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Component } from "react";
+import { useState } from "react";
 
-class Modale extends Component {
-  state = {
-    newComment: {
-      comment: "",
-      rate: "1",
-      elementId: this.props.asin,
-    },
+const Modale = (props) => {
+  const initialNewComment = {
+    comment: "",
+    rate: "1",
+    elementId: props.asin,
   };
+  // state = {
+  //   newComment: {
+  //     comment: "",
+  //     rate: "1",
+  //     elementId: this.props.asin,
+  //   },
+  // };
+  const [newComment, setNewComment] = useState(initialNewComment);
 
-  newCommentSubmit = (e) => {
+  const newCommentSubmit = (e) => {
     fetch("https://striveschool-api.herokuapp.com/api/comments/", {
       method: "POST",
       headers: {
@@ -21,7 +27,7 @@ class Modale extends Component {
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWJiOTUwYjViMjYxNTAwMTk4YTY5MzYiLCJpYXQiOjE3MDY3OTIyMDMsImV4cCI6MTcwODAwMTgwM30.0Hw_LARiHlBjPQ38iVSzxWjnwfzE2jiyA3iahWrPFCM",
       },
-      body: JSON.stringify(this.state.newComment),
+      body: JSON.stringify(newComment),
     })
       .then((response) => {
         if (response.ok) {
@@ -34,81 +40,82 @@ class Modale extends Component {
       });
   };
 
-  render() {
-    return (
-      <div
-        key={this.props.commentsToShow.elementId}
-        className="modal show"
-        style={{ display: "block", position: "initial" }}
-      >
-        <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title>Scrivi una recensione</Modal.Title>
-          </Modal.Header>
+  return (
+    <div
+      key={props.commentsToShow.elementId}
+      className="modal show"
+      style={{ display: "block", position: "initial" }}
+    >
+      <Modal.Dialog>
+        <Modal.Header>
+          <Modal.Title>Scrivi una recensione</Modal.Title>
+        </Modal.Header>
 
-          <Modal.Body>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                console.log("stato corrente", this.state.newComment);
-              }}
+        <Modal.Body>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log("stato corrente", newComment);
+            }}
+          >
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+              <Form.Label>Scrivi il tuo commento</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={newComment.comment}
+                onChange={(e) => {
+                  setNewComment({
+                    ...newComment,
+                    comment: e.target.value,
+                  });
+
+                  // this.setState({
+                  //   newComment: {
+                  //     ...this.state.newComment,
+                  //     comment: e.target.value,
+                  //   },
+                  // });
+                }}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Che voto dai?</Form.Label>
+              <Form.Select
+                aria-label="Rating"
+                required
+                value={newComment.rate}
+                onChange={(e) => {
+                  setNewComment({ ...newComment, rate: e.target.value });
+                  // this.setState({
+                  //   newComment: {
+                  //     ...this.state.newComment,
+                  //     rate: e.target.value,
+                  //   },
+                  // });
+                }}
               >
-                <Form.Label>Scrivi il tuo commento</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  onChange={(e) => {
-                    this.setState({
-                      newComment: {
-                        ...this.state.newComment,
-                        comment: e.target.value,
-                      },
-                    });
-                  }}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Che voto dai?</Form.Label>
-                <Form.Select
-                  aria-label="Rating"
-                  required
-                  value={this.state.newComment.rate}
-                  onChange={(e) => {
-                    this.setState({
-                      newComment: {
-                        ...this.state.newComment,
-                        rate: e.target.value,
-                      },
-                    });
-                  }}
-                >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Form.Select>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </Form.Select>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
 
-          <Modal.Footer>
-            <Button variant="secondary">Chiudi</Button>
-            <Button
-              onClick={this.newCommentSubmit}
-              type="button"
-              variant="primary"
-            >
-              Salva
-            </Button>
-          </Modal.Footer>
-        </Modal.Dialog>
-      </div>
-    );
-  }
-}
+        <Modal.Footer>
+          <Button variant="secondary">Chiudi</Button>
+          <Button onClick={newCommentSubmit} type="button" variant="primary">
+            Salva
+          </Button>
+        </Modal.Footer>
+      </Modal.Dialog>
+    </div>
+  );
+};
 export default Modale;
