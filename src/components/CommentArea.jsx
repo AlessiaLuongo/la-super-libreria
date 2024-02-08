@@ -48,6 +48,7 @@ const CommentArea = (props) => {
     if (props.selectedBook) {
       fetchComments();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.selectedBook]);
 
   const handleToggleModale = () => {
@@ -59,7 +60,7 @@ const CommentArea = (props) => {
 
   return (
     <div>
-      <ListGroup>
+      <ListGroup role="list-group">
         {commenti.map((commento, index) => (
           <SingleComment
             commento={commento}

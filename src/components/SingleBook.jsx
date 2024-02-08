@@ -15,6 +15,7 @@ const SingleBook = (props) => {
         }}
       >
         <Card.Img
+          alt="cover"
           variant="top"
           src={props.libro.img}
           style={{ height: "60%" }}
